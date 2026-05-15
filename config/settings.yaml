@@ -1,0 +1,65 @@
+app:
+  name: gar
+  host: 127.0.0.1
+  port: 8000
+  debug: false
+
+paths:
+  chroma_dir: data/chroma
+  sparse_dir: data/sparse
+  upload_dir: data/uploads
+
+llm:
+  provider: openai-compatible
+  base_url: https://openrouter.ai/api/v1
+  api_key_env: OPENAI_API_KEY
+  model: openai/gpt-oss-20b:free
+  temperature: 0.1
+  max_tokens: 900
+  timeout_seconds: 30
+  max_retries: 2
+
+embedding:
+  model_name: BAAI/bge-small-en-v1.5
+  query_prompt_name: null
+  dimension: 384
+  device: cpu
+  batch_size: 32
+  trust_remote_code: false
+  normalize_embeddings: true
+
+pdf:
+  min_text_chars_for_ocr: 80
+  render_dpi: 220
+
+ocr:
+  enabled: false
+  language: eng
+  tesseract_cmd: null
+
+ingestion:
+  show_progress: true
+  dense_upsert_batch_size: 64
+
+chunking:
+  chunk_tokens: 900
+  chunk_overlap_tokens: 80
+
+retrieval:
+  dense_top_k: 12
+  sparse_top_k: 12
+  fused_top_k: 8
+  final_top_k: 4
+  rrf_k: 60
+  include_debug: false
+
+reranker:
+  enabled: false
+  model_name: BAAI/bge-reranker-base
+  device: cpu
+
+prompts:
+  system: |
+    You are a careful legal research assistant. Answer only from the provided PDF context.
+    Cite every material claim using the supplied chunk identifiers. If the context does not
+    support an answer, say that the uploaded legal PDFs do not contain enough information.
