@@ -1,4 +1,4 @@
-# GAR Hybrid Legal RAG
+# VerdictVector: A Hybrid RAG System for Legal Document Intelligence
 
 GAR ingests legal PDFs, indexes them with hybrid retrieval, and answers questions
 through an OpenAI-compatible chat API with citations.
